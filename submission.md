@@ -4,7 +4,7 @@
 
 | Name | GitHub | Contribution |
 | --- | --- | --- |
-| Joshua Jones | [@](https://github.com/) | Code, design, testing, or documentation |
+| Joshua Jones | [@JoshJones552](https://github.com/JoshJones552) | Help setup the workspace, Added in Pirate ship and water |
 | Niki Durzynski | [@ndurzynski](https://github.com/ndurzynski) | Design and initial project skeleton |
 
 ## Links
