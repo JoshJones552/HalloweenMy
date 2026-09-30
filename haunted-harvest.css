@@ -120,7 +120,7 @@ body {
 .pirate-ship {
   position: absolute;
   left: -14cqw;
-  bottom: 48%;
+  bottom: calc(var(--shore) + 1%);
   height: 8cqh;
   width: auto;
   filter: drop-shadow(0 0.4cqw 0.5cqw rgba(0, 0, 0, 0.35));
