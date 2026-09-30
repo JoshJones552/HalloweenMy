@@ -1,4 +1,4 @@
-/* Halloween Color Palette & Variables */
+/* Colors */
 :root {
   --pumpkin: #ff7518;
   --candy-purple: #5a189a;
@@ -7,7 +7,7 @@
   --ghost-white: #f6f2f8;
   --candle-glow: #ffd60a;
 
-  /* scene geometry, as a share of the scene's height from the bottom */
+  /* Heights from the bottom of the scene */
   --shore: 22%;
   --horizon: 40%;
 }
@@ -19,11 +19,7 @@ body {
   background: var(--spider-black);
 }
 
-/*
- * The scene is a fixed 16:9 picture scaled to cover the screen and kept
- * centered, so every screen shows the same composition; narrow screens
- * just crop the edges. All sizes below are percentages of the scene.
- */
+/* The scene is 16:9 and fills the screen. Narrow screens crop the sides. */
 .beach {
   position: fixed;
   top: 50%;
@@ -31,9 +27,8 @@ body {
   width: max(100vw, 100vh * 16 / 9);
   aspect-ratio: 16 / 9;
   transform: translate(-50%, -50%);
-  container-type: size; /* lets children size themselves in cqw/cqh */
+  container-type: size;
   background:
-    /* sun's reflection on the water */
     /* sand */
     linear-gradient(
       to top,
@@ -48,8 +43,7 @@ body {
       #3e4f7a var(--horizon),
       transparent var(--horizon)
     ),
-    /* sun, half hidden by the ocean layer above it;
-       the 16:9 ellipse radii make it a true circle */
+    /* sun */
     radial-gradient(
       ellipse 16.875% 30% at 50% calc(100% - var(--horizon)),
       #ffd166 0,
@@ -57,7 +51,7 @@ body {
       rgba(255, 117, 24, 0.35) 47.2%,
       transparent 100%
     ),
-    /* sky: sunset into Halloween night */
+    /* sky */
     linear-gradient(
       to top,
       #ffb561 var(--horizon),
@@ -67,23 +61,28 @@ body {
     );
 }
 
-/* Bonfire on the sand; sized in cqw so it scales with the scene */
+/* Bonfire */
 .bonfire {
   position: absolute;
-  left: 39%;
-  bottom: 5%;
-  width: 7cqw;
-  height: 9cqw;
+  left: 35.5%;
+  bottom: 3%;
+  width: 13cqw;
 }
 
-/* firelight spilling onto the sand */
+.bonfire img {
+  position: relative; /* keeps the photo above the glow */
+  display: block;
+  width: 100%;
+}
+
+/* Glow on the sand */
 .bonfire::before {
   content: "";
   position: absolute;
   left: 50%;
   bottom: -30%;
-  width: 500%;
-  height: 120%;
+  width: 350%;
+  height: 170%;
   translate: -50% 0;
   background: radial-gradient(
     ellipse closest-side,
@@ -93,71 +92,10 @@ body {
   animation: firelight 1.6s ease-in-out infinite alternate;
 }
 
-.logs {
-  position: absolute;
-  inset: auto 0 0;
-  height: 20%;
-}
-
-.logs::before,
-.logs::after {
-  content: "";
-  position: absolute;
-  inset: 30% 5% 25%;
-  border-radius: 999px;
-  background: linear-gradient(#6b4226, #2e1b10);
-}
-
-.logs::before { rotate: 14deg; }
-.logs::after  { rotate: -14deg; }
-
-/* each flame is a teardrop: a square with one sharp corner turned to
-   point up, then stretched tall */
-.flame {
-  position: absolute;
-  bottom: 12%;
-  left: 50%;
-  width: 50%;
-  aspect-ratio: 1;
-  translate: -50% 0;
-  scale: 0.75 1.4;
-  transform-origin: 50% 100%;
-  animation: burn 0.8s ease-in-out infinite alternate;
-}
-
-.flame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 0 50% 50% 50%;
-  rotate: 45deg;
-  background: radial-gradient(
-    circle at 70% 70%,
-    #fff3b0,
-    #ffb703 35%,
-    #fb8500 65%,
-    #d62828
-  );
-}
-
-.flame:nth-of-type(3) {
-  left: 32%;
-  width: 34%;
-  animation-duration: 0.65s;
-  animation-delay: -0.3s;
-}
-
-.flame:nth-of-type(4) {
-  left: 68%;
-  width: 38%;
-  animation-duration: 0.95s;
-  animation-delay: -0.5s;
-}
-
-/* Skeleton lounging just right of the fire, facing it */
+/* Skeleton */
 .skeleton {
   position: absolute;
-  left: 46%;
+  left: 48%;
   bottom: 3.5%;
   width: 17cqw;
 }
@@ -169,15 +107,14 @@ body {
   width: 17cqw;
 }
 
-/* Bat swarm in the upper sky. The JPEG has a white background, so
-   multiply blending drops the white and leaves only the black bats */
+/* Bats. Multiply hides the white background of the JPEG. */
 .bats {
   position: absolute;
   top: 2%;
   right: 4%;
   width: 34cqw;
   mix-blend-mode: multiply;
-  clip-path: inset(1%); /* trims the thin border around the photo */
+  clip-path: inset(1%); /* cuts off the border of the photo */
 }
 
 .pirate-ship {
@@ -200,15 +137,11 @@ body {
   50% { translate: 0 -0.6cqh; }
 }
 
-@keyframes burn {
-  to { transform: scale(0.9, 1); }
-}
-
 @keyframes firelight {
   to { opacity: 0.7; }
 }
 
-/* Reduced Motion Preferences */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -224,12 +157,12 @@ body {
   }
 }
 
-/* CSS-only scene switching; wrap scenes in .scenes */
+/* Scene switching */
 .scene { display: none; }
 .scenes:not(:has(.scene:target)) .scene:first-child { display: block; }
 .scene:target { display: block; }
 
-/* Glowing jack-o'-lantern flicker */
+/* Pumpkin flicker */
 @keyframes flicker {
   0%, 100% { opacity: 1; filter: drop-shadow(0 0 12px var(--pumpkin)); }
   50%      { opacity: 0.75; }
@@ -239,7 +172,7 @@ body {
   animation: flicker 2.5s ease-in-out infinite;
 }
 
-/* Fog drift */
+/* Fog */
 @keyframes drift {
   from { transform: translateX(-100%); }
   to   { transform: translateX(100%); }
