@@ -1,0 +1,111 @@
+/* Halloween Color Palette & Variables */
+:root {
+  --pumpkin: #ff7518;
+  --candy-purple: #5a189a;
+  --spider-black: #1a1423;
+  --slime-green: #8ac926;
+  --ghost-white: #f6f2f8;
+  --candle-glow: #ffd60a;
+
+  /* scene geometry, as a share of the scene's height from the bottom */
+  --shore: 22%;
+  --horizon: 40%;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--spider-black);
+}
+
+/*
+ * The scene is a fixed 16:9 picture scaled to cover the screen and kept
+ * centered, so every screen shows the same composition; narrow screens
+ * just crop the edges. All sizes below are percentages of the scene.
+ */
+.beach {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: max(100vw, 100vh * 16 / 9);
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+  background:
+    /* shoreline foam */
+    linear-gradient(
+      to top,
+      transparent calc(var(--shore) - 1.5%),
+      rgba(246, 242, 248, 0.55) var(--shore),
+      transparent calc(var(--shore) + 1%)
+    ),
+    /* sun's reflection on the water */
+    radial-gradient(
+      ellipse 12.5% 16% at 50% calc(100% - var(--horizon)),
+      rgba(255, 190, 100, 0.7),
+      transparent
+    ),
+    /* sand */
+    linear-gradient(
+      to top,
+      #d9b48a 0%,
+      #7d5a48 var(--shore),
+      transparent var(--shore)
+    ),
+    /* ocean */
+    linear-gradient(
+      to top,
+      #163d56 var(--shore),
+      #3e4f7a var(--horizon),
+      transparent var(--horizon)
+    ),
+    /* sun, half hidden by the ocean layer above it;
+       the 16:9 ellipse radii make it a true circle */
+    radial-gradient(
+      ellipse 16.875% 30% at 50% calc(100% - var(--horizon)),
+      #ffd166 0,
+      var(--pumpkin) 46.5%,
+      rgba(255, 117, 24, 0.35) 47.2%,
+      transparent 100%
+    ),
+    /* sky: sunset into Halloween night */
+    linear-gradient(
+      to top,
+      #ffb561 var(--horizon),
+      #c9184a calc(var(--horizon) + 22%),
+      var(--candy-purple) calc(var(--horizon) + 40%),
+      var(--spider-black) 100%
+    );
+}
+
+/* Reduced Motion Preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* CSS-only scene switching; wrap scenes in .scenes */
+.scene { display: none; }
+.scenes:not(:has(.scene:target)) .scene:first-child { display: block; }
+.scene:target { display: block; }
+
+/* Glowing jack-o'-lantern flicker */
+@keyframes flicker {
+  0%, 100% { opacity: 1; filter: drop-shadow(0 0 12px var(--pumpkin)); }
+  50%      { opacity: 0.75; }
+}
+
+.pumpkin-glow {
+  animation: flicker 2.5s ease-in-out infinite;
+}
+
+/* Fog drift */
+@keyframes drift {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(100%); }
+}
