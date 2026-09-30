@@ -33,19 +33,7 @@ body {
   transform: translate(-50%, -50%);
   container-type: size; /* lets children size themselves in cqw/cqh */
   background:
-    /* shoreline foam */
-    linear-gradient(
-      to top,
-      transparent calc(var(--shore) - 1.5%),
-      rgba(246, 242, 248, 0.55) var(--shore),
-      transparent calc(var(--shore) + 1%)
-    ),
     /* sun's reflection on the water */
-    radial-gradient(
-      ellipse 12.5% 16% at 50% calc(100% - var(--horizon)),
-      rgba(255, 190, 100, 0.7),
-      transparent
-    ),
     /* sand */
     linear-gradient(
       to top,
@@ -166,8 +154,7 @@ body {
   animation-delay: -0.5s;
 }
 
-/* Skeleton lounging just right of the fire, facing it; the drop shadow
-   on its left edge reads as firelight catching the bones */
+/* Skeleton lounging just right of the fire, facing it */
 .skeleton {
   position: absolute;
   left: 46%;
@@ -180,6 +167,17 @@ body {
   left: 26%;
   bottom: 3.5%;
   width: 17cqw;
+}
+
+/* Bat swarm in the upper sky. The JPEG has a white background, so
+   multiply blending drops the white and leaves only the black bats */
+.bats {
+  position: absolute;
+  top: 2%;
+  right: 4%;
+  width: 34cqw;
+  mix-blend-mode: multiply;
+  clip-path: inset(1%); /* trims the thin border around the photo */
 }
 
 .pirate-ship {
@@ -203,7 +201,7 @@ body {
 }
 
 @keyframes burn {
-  to { transform: scale(0.9, 1.15) skewX(-4deg); }
+  to { transform: scale(0.9, 1); }
 }
 
 @keyframes firelight {
