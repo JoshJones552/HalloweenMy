@@ -119,22 +119,11 @@ body {
 
 .pirate-ship {
   position: absolute;
-  left: -14cqw;
+  left: 70%;
   bottom: calc(var(--shore) + 1%);
   height: 8cqh;
   width: auto;
   filter: drop-shadow(0 0.4cqw 0.5cqw rgba(0, 0, 0, 0.35));
-  animation:
-    sail-across 28s linear infinite,
-    bob-on-water 2.8s ease-in-out infinite;
-}
-
-@keyframes sail-across {
-  to { left: 114%; }
-}
-
-@keyframes bob-on-water {
-  50% { translate: 0 -0.6cqh; }
 }
 
 @keyframes firelight {
@@ -149,11 +138,6 @@ body {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-
-  .pirate-ship {
-    left: 70%;
-    animation: none !important;
   }
 }
 
