@@ -31,6 +31,7 @@ body {
   width: max(100vw, 100vh * 16 / 9);
   aspect-ratio: 16 / 9;
   transform: translate(-50%, -50%);
+  container-type: size; /* lets children size themselves in cqw/cqh */
   background:
     /* shoreline foam */
     linear-gradient(
@@ -76,6 +77,118 @@ body {
       var(--candy-purple) calc(var(--horizon) + 40%),
       var(--spider-black) 100%
     );
+}
+
+/* Bonfire on the sand; sized in cqw so it scales with the scene */
+.bonfire {
+  position: absolute;
+  left: 39%;
+  bottom: 5%;
+  width: 7cqw;
+  height: 9cqw;
+}
+
+/* firelight spilling onto the sand */
+.bonfire::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -30%;
+  width: 500%;
+  height: 120%;
+  translate: -50% 0;
+  background: radial-gradient(
+    ellipse closest-side,
+    rgba(255, 140, 40, 0.45),
+    transparent
+  );
+  animation: firelight 1.6s ease-in-out infinite alternate;
+}
+
+.logs {
+  position: absolute;
+  inset: auto 0 0;
+  height: 20%;
+}
+
+.logs::before,
+.logs::after {
+  content: "";
+  position: absolute;
+  inset: 30% 5% 25%;
+  border-radius: 999px;
+  background: linear-gradient(#6b4226, #2e1b10);
+}
+
+.logs::before { rotate: 14deg; }
+.logs::after  { rotate: -14deg; }
+
+/* each flame is a teardrop: a square with one sharp corner turned to
+   point up, then stretched tall */
+.flame {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  width: 50%;
+  aspect-ratio: 1;
+  translate: -50% 0;
+  scale: 0.75 1.4;
+  transform-origin: 50% 100%;
+  animation: burn 0.8s ease-in-out infinite alternate;
+}
+
+.flame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0 50% 50% 50%;
+  rotate: 45deg;
+  background: radial-gradient(
+    circle at 70% 70%,
+    #fff3b0,
+    #ffb703 35%,
+    #fb8500 65%,
+    #d62828
+  );
+}
+
+.flame:nth-of-type(3) {
+  left: 32%;
+  width: 34%;
+  animation-duration: 0.65s;
+  animation-delay: -0.3s;
+}
+
+.flame:nth-of-type(4) {
+  left: 68%;
+  width: 38%;
+  animation-duration: 0.95s;
+  animation-delay: -0.5s;
+}
+
+/* Skeleton lounging just right of the fire, facing it; the drop shadow
+   on its left edge reads as firelight catching the bones */
+.skeleton {
+  position: absolute;
+  left: 46%;
+  bottom: 3.5%;
+  width: 17cqw;
+}
+
+.pounce {
+  position: absolute;
+  left: 26%;
+  bottom: 3.5%;
+  width: 17cqw;
+}
+
+
+@keyframes burn {
+  to { transform: scale(0.9, 1.15) skewX(-4deg); }
+}
+
+@keyframes firelight {
+  to { opacity: 0.7; }
 }
 
 /* Reduced Motion Preferences */
