@@ -185,8 +185,8 @@ body {
 .pirate-ship {
   position: absolute;
   left: -14cqw;
-  bottom: 23%;
-  height: 12cqh;
+  bottom: 48%;
+  height: 8cqh;
   width: auto;
   filter: drop-shadow(0 0.4cqw 0.5cqw rgba(0, 0, 0, 0.35));
   animation:
